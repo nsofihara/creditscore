@@ -107,7 +107,8 @@
     color: rgb(255, 255, 255) !important;
     background: #9D50BB !important;
     background: -webkit-linear-gradient(to right, #ff5d00, #ff5d00) !important;  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #ff5d00, #ff5d00) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    /*background: linear-gradient(to right, #ff5d00, #ff5d00) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background : #ffda79
   
   
   }
