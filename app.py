@@ -37,6 +37,20 @@ def create_app():
 		    	'prediction': result['data'][0]['prediction'],
 		    	'result': str(round(result['data'][0]['pred_proba'], 3))
 		  	}
+		return jsonify(result)
+
+	@app.route('/predict-api', methods=['POST'])
+	def predict_api():
+		data = request.get_json()
+		result = make_prediction(data)
+
+		result = {
+			'model' : 'LR-ALL-WOE',
+			'version' : '1.0.0',
+			'score_proba' : result['data'][0]['pred_proba'],
+			'prediction' : result['data'][0]['prediction']
+		}
+		print(result)
 
 		return jsonify(result)
 	return app
