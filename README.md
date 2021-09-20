@@ -19,22 +19,22 @@ https://nadiasofihara-creditscore.herokuapp.com
 Steps for Calculate Credit Score using REST API :
 - From Postman, select POST method.
 - Input https://nadiasofihara-creditscore.herokuapp.com/predict-api to REST API link column.
-- Choose Content-Type: application/json as Request Header
-- Input Body Parameter
+- Choose Content-Type: application/json as Request Header.
+- Input Body Parameter.
 
 Feature | Description | Value 
 ------|-------------|-------
 person_age | Age. | Integer 
-person_income | Annual Income. | Integer 
-person_home_ownership | Home ownership. | 'RENT', 'MORTGAGE', 'OWN', or 'OTHER'
+person_income | Annual Income | Integer 
+person_home_ownership | Home ownership | 'RENT', 'MORTGAGE', 'OWN', or 'OTHER'
 person_emp_length | Employment length (in years) | Integer 
-loan_amnt | Loan amount. | Integer 
-loan_int_rate | Interest rate. | Float 
-loan_percent_income | Percent income. | Float (Between 0 and 1)
+loan_amnt | Loan amount | Integer 
+loan_int_rate | Interest rate | Float 
+loan_percent_income | Percent income | Float (Between 0 and 1)
 cb_person_cred_hist_length | Credit history length. | Integer 
-loan_intent | Loan intent. | 'PERSONAL', 'EDUCATION', 'MEDICAL', 'VENTURE', 'HOMEIMPROVEMENT', or 'DEBTCONSOLIDATION' 
-loan_grade | Loan grade. | 'A', 'B', 'C, 'D', 'E', 'F', or 'G' 
-cb_person_default_on_file | Historical default. | 'Y', or 'N' 
+loan_intent | Loan intent | 'PERSONAL', 'EDUCATION', 'MEDICAL', 'VENTURE', 'HOMEIMPROVEMENT', or 'DEBTCONSOLIDATION' 
+loan_grade | Loan grade | 'A', 'B', 'C, 'D', 'E', 'F', or 'G' 
+cb_person_default_on_file | Historical default | 'Y', or 'N' 
 
 ```
 {
@@ -59,11 +59,11 @@ cb_person_default_on_file | Historical default. | 'Y', or 'N'
 
 Field | Description
 ------|------------
-model | Machine learning model used for Credit Scoring Prediction.
-version | Model version.
-score_proba | Probability estimates.
-prediction | Predict class labels (0 is non default 1 is default).
+model | Machine learning model used for Credit Scoring Prediction
+version | Model version
+score_proba | Probability estimates
+prediction | Predict class labels (0 is non default 1 is default)
 
 ## Handling Missing Keys & Missing Value
-- Numeric Columns : Missing keys and missing value will be replace by np.nan
+- Numeric Columns : Missing keys and missing value will be replace by np.nan.
 - Categorical Columns : Missing keys and missing or random value will return 400 Bad Request.
