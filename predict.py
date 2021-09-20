@@ -68,29 +68,67 @@ with open("COL-NAME1.0.0.pkl", "rb") as f:
 with open("LR-ALL-WOE-1.0.0.pkl", "rb") as f:
 	lr_model = pickle.load(f)
 
-
 def formatting_data(raw_input):
-	required_columns = ['person_age', 'person_income', 'person_emp_length', 'loan_amnt', 'loan_int_rate', 'loan_percent_income', 'cb_person_cred_hist_length', 'person_home_ownership', 'loan_intent', 'loan_grade', 'cb_person_default_on_file']
+  # Missing Column (Key) Handling as np.nan
+  required_columns = ['person_age', 'person_income', 'person_home_ownership', 'person_emp_length', 'loan_intent', 'loan_grade', 
+  'loan_amnt', 'loan_int_rate', 'loan_percent_income', 'cb_person_default_on_file', 'cb_person_cred_hist_length']
 
-	for col in required_columns:
-		try:
-			raw_input[col]
-		except KeyError as err:
-			if(col == 'person_home_ownership' or col == 'loan_intent' or col == 'loan_grade' or col == 'cb_person_default_on_file'):
-				abort(400, {'message': 'categorical column is missing'})
-			else:
-				raw_input[col] = np.nan
+  for col in required_columns:
+    try:
+      raw_input[col]
+    except KeyError as err:
+      # If the categorical column missing: reject request
+      if(col == 'person_home_ownership' or col == 'loan_intent' or col == 'loan_grade' or col == 'cb_person_default_on_file'):
+        abort(400, {'error': 'categorical column is missing'})
+      else:
+        raw_input[col] = np.nan #handling as np.nan
+  
+  categorical_columns = ['person_home_ownership', 'loan_intent', 'loan_grade', 'cb_person_default_on_file']
+  val = {
+    "person_home_ownership": ['RENT','MORTGAGE','OWN','OTHER'],
+    "loan_intent": ['EDUCATION', 'MEDICAL', 'VENTURE','PERSONAL','HOMEIMPROVEMENT','DEBTCONSOLIDATION'],
+    "loan_grade": ['A','B','C','D','E','F','G'],
+    "cb_person_default_on_file": ['Y','N']
+  }
+  for col in categorical_columns:
+    if(raw_input[col] not in val[col]):
+      abort(400, {'error': 'categorical column not match with the exact value'})
+
+  # Outliers Handling: WOE (preprocessing) will handle the outliers
+  # Missing Value Handling: Missing values will be mapped to np.nan. After that WOE will handle the nan value
+  mapper_replace = {
+      "null": np.nan,
+      "": np.nan,
+      None: np.nan
+  }
+
+  # Transform into DataFrame. Turn the dict to list first
+  data = pd.DataFrame([raw_input]).replace(mapper_replace)
+  
+  return data
+
+# def formatting_data(raw_input):
+# 	required_columns = ['person_age', 'person_income', 'person_emp_length', 'loan_amnt', 'loan_int_rate', 'loan_percent_income', 'cb_person_cred_hist_length', 'person_home_ownership', 'loan_intent', 'loan_grade', 'cb_person_default_on_file']
+
+# 	for col in required_columns:
+# 		try:
+# 			raw_input[col]
+# 		except KeyError as err:
+# 			if(col == 'person_home_ownership' or col == 'loan_intent' or col == 'loan_grade' or col == 'cb_person_default_on_file'):
+# 				abort(400, {'message': 'categorical column is missing'})
+# 			else:
+# 				raw_input[col] = np.nan
 
 
-	mapper_replace = {
-		"null": np.nan,
-		"" : np.nan,
-		None: np.nan
-}
+# 	mapper_replace = {
+# 		"null": np.nan,
+# 		"" : np.nan,
+# 		None: np.nan
+# }
 
-	data = pd.DataFrame([raw_input]).replace(mapper_replace)
+# 	data = pd.DataFrame([raw_input]).replace(mapper_replace)
 
-	return data
+# 	return data
 
 def preprocess(data):
 	for feature, woe_info in woe_dict.items():
@@ -124,18 +162,13 @@ def make_prediction(raw_input):
 	prediction = pred(data)
 	return prediction
 
-if __name__ == "__main__":
-	result = make_prediction(raw_input)
-	print(result)
+# if __name__ == "__main__":
+# 	result = make_prediction(raw_input)
+# 	print(result)
 
 if __name__ == "__main__":
 	result = pred(pd.DataFrame([test_input]))
 	print(result)
-
-
-
-
-
 
 
 
