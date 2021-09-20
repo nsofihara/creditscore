@@ -1,8 +1,10 @@
+## Credit Scoring
 This model uses a credit risk dataset containing data about customers loan application. The goal is to build a model that company or credit analyst can use to help make the best decisions to approve or reject the loan applications. Historical data are provided on 32416 data.
 
 We use Logistic Regression Algorithm because it's easier to implement, interpret, and very efficient to train. We also use some of preprocessing steps, including OneHotEncoder for categorical value and transforming numerical value into WoE value to handling outlier. To find the best parameter for our model, we use GridSearchCV. This model uses all the results of WoE features and OneHotEncoder features.
 
 We split data into train, valid and test dataset. From this model, we get accuracy score and AUC score shown below :
+
 <img width="434" alt="Screen Shot 2021-09-20 at 1 42 19 PM" src="https://user-images.githubusercontent.com/90818060/133964604-cec13be5-5cb3-4f32-8a70-5fe78367a868.png">
 
 ## Access Credit Score Calculator via Heroku :
