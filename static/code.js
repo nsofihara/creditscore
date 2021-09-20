@@ -29,10 +29,11 @@ $(document).on('click','.button',function(e){
     var cb_person_default_on_file = cb_person_default_on_file_.value;
     var cb_person_cred_hist_length = cb_person_cred_hist_length_.value;
     if(person_age == "" || person_income == "" ||person_home_ownership == ""||person_emp_length == ""||loan_intent == ""||loan_grade == ""||
-    	loan_amnt == ""||loan_int_rate == ""||loan_percent_income == ""||cb_person_default_on_file == ""||cb_person_cred_hist_length == ""){
+      loan_amnt == ""||loan_int_rate == ""||loan_percent_income == ""||cb_person_default_on_file == ""||cb_person_cred_hist_length == "" || 
+      loan_percent_income > 1){
       // you may allow it as per your model needs
       // you may mark some fields with * (star) and make sure they aren't empty here
-      alert("empty fields not allowed");
+      //alert("Empty fields not allowed");
     }
     else{
       // replace <username> with your pythonanywhere username
@@ -75,22 +76,20 @@ $(document).on('click','.button',function(e){
         dataType: "json",
         type: 'POST',
         success: function(response){
-            console.log(response);
-            prediction = response['result'];
-            //score_proba = response['score_proba'];
-            //prediction = response['prediction'];
-            //result = response['result'];
-            $(".result").html("Prediction is: "+prediction);
-            //$(".result").html("Prediction is: "+score_proba);
+            //console.log(response);
+            score_proba = response['score_proba'];
+            prediction = response['prediction'];
+            result = response['result'];
+            $(".result").html("Prediction is: "+score_proba);
             $(".result").css({
               "color": "#666666",
               "text-align": "center"
             });
-            //$(".result2").html("Your data predicted as: "+prediction+"("+result+"))";
-            //$(".result2").css({
-              //"color": "#666666",
-              //"text-align": "center"
-            //});
+            $(".result2").html("Your data predicted as: "+result+" ("+prediction+")");
+            $(".result2").css({
+              "color": "#666666",
+              "text-align": "center"
+            });
         },
         error: function(error){
             console.log(error);
