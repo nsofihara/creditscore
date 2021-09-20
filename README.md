@@ -6,13 +6,6 @@ https://nadiasofihara-creditscore.herokuapp.com
 
 ### Input
 <img width="856" alt="Screen Shot 2021-09-20 at 12 10 35 PM" src="https://user-images.githubusercontent.com/90818060/133959180-c21b9d0b-cac5-4b3f-b497-fc3d787becf2.png">
-## Access Credit Score Calculator via Heroku :
-https://nadiasofihara-creditscore.herokuapp.com
-
-## Access Rest API via POSTMAN :
-[POST] - https://nadiasofihara-creditscore.herokuapp.com/predict-api
-
-<img width="856" alt="Screen Shot 2021-09-20 at 12 10 35 PM" src="https://user-images.githubusercontent.com/90818060/133959180-c21b9d0b-cac5-4b3f-b497-fc3d787becf2.png">
 
 Steps for Calculate Credit Score using REST API :
 - From Postman, select POST method.
