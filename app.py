@@ -13,6 +13,7 @@ def home():
 
 @app.route('/predict', methods=['POST'])
 def predict():
+	print(request)
 	if request.method == 'POST':
 		data_input = request.get_json()
 		data = {}
@@ -30,15 +31,16 @@ def predict():
 		data["cb_person_cred_hist_length"] = int(data_input['data']['cb_person_cred_hist_length'])
 
 		result = make_prediction(data)
-		#default = ('Non Default' if result['data'][0]['prediction'] == 0 else 'Default')
+		default = ('Non Default' if result['data'][0]['prediction'] == 0 else 'Default')
 		result = {
 	    	'model': 'LR-ALL-WOE',
 	    	'version': '1.0.0',
-	    	'score_proba': result['data'][0]['pred_proba'],
-		#'score_proba': str(round(result['data'][0]['pred_proba'], 3)),
+	    	#'score_proba': result['data'][0]['pred_proba'],
+	    	'score_proba': str(round(result['data'][0]['pred_proba'], 3)),
 	    	'prediction': result['data'][0]['prediction'],
-	    	'result': str(round(result['data'][0]['pred_proba'], 3))
-		#'result' : default
+	    	#'result': str(round(result['data'][0]['pred_proba'], 3)),
+	    	'result' : default
+
 	  	}
 
 	return jsonify(result)
@@ -47,15 +49,15 @@ def predict():
 def predict_api():
 	data = request.get_json()
 	result = make_prediction(data)
-	#default = ('Non Default' if result['data'][0]['prediction'] == 0 else 'Default')
+	default = ('Non Default' if result['data'][0]['prediction'] == 0 else 'Default')
 
 	result = {
 		'model': 'LR-ALL-WOE',
 		'version': '1.0.0',
-		'score_proba': result['data'][0]['pred_proba'],
-		#'score_proba': str(round(result['data'][0]['pred_proba'], 3)),
+		#'score_proba': result['data'][0]['pred_proba'],
+		'score_proba': str(round(result['data'][0]['pred_proba'], 3)),
 		'prediction': result['data'][0]['prediction'],
-		#'result' : default
+		'result' : default
   	}	
 	print(result)
 	return jsonify(result)
